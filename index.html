@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kylaq Classic+ AT PDI Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3f5f8; --sheet:#ffffff; --ink:#18212f; --muted:#5b6678; --rule:#d9dee6;
+  --lava:#1d4f91; --lava-soft:#e4ecf7; --amber:#b26a00; --amber-soft:#fff3df;
+  --red:#b3261e; --red-soft:#fde8e6; --green:#1d7a52; --green-soft:#e2f4ea;
+  --verify:#6a4fb3; --verify-soft:#efeafb;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f1520; --sheet:#172030; --ink:#e7ecf3; --muted:#9aa6b8; --rule:#2a3547;
+    --lava:#7fa8e6; --lava-soft:#1c2b44; --amber:#f0a73a; --amber-soft:#33260f;
+    --red:#f08a80; --red-soft:#3a1c1a; --green:#5fc796; --green-soft:#143126;
+    --verify:#b8a3f0; --verify-soft:#261f3d;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f1520; --sheet:#172030; --ink:#e7ecf3; --muted:#9aa6b8; --rule:#2a3547;
+  --lava:#7fa8e6; --lava-soft:#1c2b44; --amber:#f0a73a; --amber-soft:#33260f;
+  --red:#f08a80; --red-soft:#3a1c1a; --green:#5fc796; --green-soft:#143126;
+  --verify:#b8a3f0; --verify-soft:#261f3d;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;margin:0;line-height:1.1}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--lava);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+
+/* Header */
+header.top{padding:28px 0 18px;border-bottom:4px solid var(--lava);background:var(--sheet)}
+.car{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:clamp(2.2rem,7vw,3.4rem);font-weight:700;letter-spacing:.01em}
+.spec{color:var(--muted);margin-top:4px;font-size:1.05rem}
+.swatch{display:inline-block;width:14px;height:14px;border-radius:50%;background:#1f4d8f;vertical-align:-2px;margin-right:6px;border:1px solid var(--rule)}
+.intro{margin:14px 0 0;max-width:68ch}
+
+/* Sticky rail */
+.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet);border-bottom:1px solid var(--rule)}
+.meter{display:flex;align-items:center;gap:12px;padding:10px 0 6px}
+.meter-bar{flex:1;height:10px;background:var(--rule);border-radius:5px;overflow:hidden}
+.meter-fill{height:100%;width:0;background:var(--green);transition:width .3s}
+.meter-txt{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;font-size:.95rem}
+.stations{display:flex;gap:4px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:thin}
+.st{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:5px 10px 5px 5px;border:1px solid var(--rule);border-radius:20px;background:var(--paper);text-decoration:none;color:var(--ink);font-size:.85rem;white-space:nowrap}
+.st b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--rule);font-size:.75rem;font-variant-numeric:tabular-nums}
+.st.done b{background:var(--green);color:#fff}
+.st.issue b{background:var(--red);color:#fff}
+.filters{display:flex;gap:6px;flex-wrap:wrap;padding:0 0 10px}
+.chip{border:1px solid var(--rule);background:var(--sheet);border-radius:6px;padding:6px 12px;cursor:pointer;font-size:.9rem;min-height:36px}
+.chip[aria-pressed="true"]{background:var(--lava);border-color:var(--lava);color:#fff}
+:root[data-theme="dark"] .chip[aria-pressed="true"]{color:#0f1520}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0f1520}}
+
+/* Panels */
+.panel{background:var(--sheet);border:1px solid var(--rule);border-radius:10px;padding:18px;margin:20px 0}
+.panel h2{font-size:1.5rem;margin-bottom:10px}
+.panel h3{font-size:1.15rem;margin:14px 0 6px}
+.panel ul{margin:0;padding-left:20px}
+.panel li{margin:3px 0}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:.92rem}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 7px;border-radius:4px;vertical-align:1px}
+.tag.hot{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber)}
+.tag.key{background:var(--lava-soft);color:var(--lava);border:1px solid var(--lava)}
+.tag.ver{background:var(--verify-soft);color:var(--verify);border:1px solid var(--verify)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+
+/* Sections */
+section.zone{margin:30px 0}
+.zone-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:6px}
+.zone-num{font-family:"Barlow Condensed",sans-serif;font-size:2.4rem;font-weight:700;color:var(--lava);line-height:1;font-variant-numeric:tabular-nums}
+.zone-head h2{font-size:1.7rem;flex:1}
+.zone-count{color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums}
+.zone-note{color:var(--muted);margin:8px 0 4px;font-size:.95rem;max-width:70ch}
+
+.item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:12px 4px;border-bottom:1px solid var(--rule)}
+.item.hot{border-left:4px solid var(--amber);padding-left:10px;background:linear-gradient(90deg,var(--amber-soft),transparent 60%)}
+.item.is-ok .ttl{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+.item.is-issue{background:var(--red-soft)}
+.cb{width:28px;height:28px;margin:2px 0 0;accent-color:var(--green);cursor:pointer}
+.ttl{font-weight:600;cursor:pointer}
+.how{color:var(--muted);font-size:.93rem;margin-top:2px}
+.why{font-size:.88rem;margin-top:4px;color:var(--amber)}
+.tags{margin-top:4px;display:flex;gap:6px;flex-wrap:wrap}
+.flag{border:1px solid var(--rule);background:var(--sheet);border-radius:6px;padding:6px 10px;font-size:.85rem;cursor:pointer;min-height:36px;white-space:nowrap}
+.flag[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.note{grid-column:2 / 4;display:none}
+.item.is-issue .note{display:block}
+.note textarea{width:100%;min-height:56px;border:1px solid var(--red);border-radius:6px;padding:8px;font:inherit;font-size:.93rem;background:var(--sheet);color:var(--ink);resize:vertical}
+.hidden{display:none!important}
+
+/* Summary */
+.summary .stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.stat{flex:1 1 120px;border:1px solid var(--rule);border-radius:8px;padding:10px}
+.stat strong{display:block;font-family:"Barlow Condensed",sans-serif;font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:.88rem}
+.issues-list{margin:8px 0 0;padding-left:20px}
+.issues-list li{margin:6px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{border:1px solid var(--lava);background:var(--lava);color:#fff;border-radius:6px;padding:9px 16px;cursor:pointer;font-weight:600;min-height:40px}
+.btn.ghost{background:transparent;color:var(--lava)}
+:root[data-theme="dark"] .btn:not(.ghost){color:#0f1520}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.ghost){color:#0f1520}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:6px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
+.toast.show{opacity:1}
+footer{color:var(--muted);font-size:.88rem;padding:20px 0 40px}
+footer a{color:var(--lava)}
+footer ol{padding-left:20px}
+@media (max-width:560px){
+  .item{grid-template-columns:auto 1fr}
+  .flag{grid-column:2;justify-self:start}
+  .note{grid-column:1 / 3}
+}
+@media (prefers-reduced-motion:reduce){.meter-fill,.toast{transition:none}}
+@media print{
+  .rail,.actions,.flag,.filters{display:none!important}
+  body{background:#fff;color:#000}
+  .item{break-inside:avoid}
+  .hidden{display:grid!important}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="car">Škoda Kylaq Classic+ AT</div>
+    <div class="spec"><span class="swatch" aria-hidden="true"></span>Lava Blue, 1.0 TSI petrol, 6-speed torque-converter automatic</div>
+    <p class="intro">Pre-delivery inspection sheet, ordered as a walk-around: paperwork, then the outside from the front bumper to the tailgate, then top to bottom (roof, wheels, underbody, engine bay), then the cabin front to boot, and finally the drive. Your ticks are kept for this browser session, so a page refresh won't lose them.</p>
+  </div>
+</header>
+
+<div class="rail" id="rail">
+  <div class="wrap">
+    <div class="meter">
+      <div class="meter-bar" role="progressbar" aria-label="Overall progress" aria-valuemin="0" aria-valuemax="100" id="meterBar"><div class="meter-fill" id="meterFill"></div></div>
+      <div class="meter-txt" id="meterTxt">0 / 0</div>
+    </div>
+    <nav class="stations" id="stations" aria-label="Inspection zones"></nav>
+    <div class="filters" role="group" aria-label="Show items">
+      <button class="chip" data-f="all" aria-pressed="true">All items</button>
+      <button class="chip" data-f="hot" aria-pressed="false">Known weak spots</button>
+      <button class="chip" data-f="open" aria-pressed="false">Not yet checked</button>
+      <button class="chip" data-f="issue" aria-pressed="false">Issues found</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <div class="panel">
+    <h2>How to read this sheet</h2>
+    <div class="legend">
+      <span><span class="tag hot">Known weak spot</span> reported by Kylaq owners or tied to a Kylaq recall; the reason is shown under the item</span>
+      <span><span class="tag key">High-risk area</span> where new-car PDIs most often catch yard, transit or repaint damage</span>
+      <span><span class="tag ver">Confirm fitted</span> I could not confirm from public sources whether this is on the Classic+ AT; ask the dealer and check the brochure before treating its absence as a defect</span>
+    </div>
+    <p style="margin:12px 0 0">Tick the box when an item is fine. Tap <strong>Issue</strong> to flag a problem and type what you saw; flagged items are gathered in the summary at the end so you can hand the dealer a written list.</p>
+  </div>
+
+  <div class="panel">
+    <h2>What your variant has, and doesn't</h2>
+    <div class="cols">
+      <div>
+        <h3>Confirmed on Classic+ AT</h3>
+        <ul>
+          <li>Single-pane electric sunroof</li>
+          <li>16-inch steel wheels with silver wheel caps</li>
+          <li>Cruise control, steering-mounted audio buttons</li>
+          <li>4 speakers wired, but no head unit</li>
+          <li>Rain-sensing wipers, auto-dimming IRVM</li>
+          <li>Auto climate control, powered ORVMs with indicators</li>
+          <li>LED headlamps with LED DRLs, LED tail lamps</li>
+          <li>Tilt and telescopic steering, driver seat height adjust</li>
+          <li>6 airbags, ESC, ABS with EBD, ISOFIX, 3-point belts for all seats</li>
+          <li>Speed-sensing automatic door locking</li>
+          <li>Remote central locking, 4 power windows</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Not on Classic+ (don't expect these)</h3>
+        <ul>
+          <li>Touchscreen or any music system</li>
+          <li>Reverse camera (starts from Signature+)</li>
+          <li>Alloy wheels, front fog lamps</li>
+          <li>Powered or ventilated seats</li>
+          <li>Front armrest and parcel tray, per an owner of this exact variant</li>
+        </ul>
+        <h3>Confirm with the dealer</h3>
+        <ul>
+          <li>Rear wiper and washer (added to Signature in 2026; Classic+ status unclear)</li>
+          <li>Rear defogger, rear parking sensors, TPMS</li>
+          <li>Paddle shifters, hill-hold, rear AC vents working</li>
+          <li>Sunroof anti-pinch, 60:40 rear seat split</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Before you go</h2>
+    <ul>
+      <li>Do the PDI <strong>before</strong> full payment and registration. Once the car is registered in your name, your leverage to reject it is mostly gone.</li>
+      <li>Go in daylight and insist the car is washed and dry. Mud and dust hide scratches and repaint marks.</li>
+      <li>Ask the dealer not to start the car before you arrive, so you can check a true cold start.</li>
+      <li>Carry: a bright torch, phone camera, tyre pressure gauge, a small kitchen or probe thermometer for AC vents, a bottle of water, a cloth, and this sheet. Optional: a paint-thickness gauge and a VAG-compatible OBD scanner to read stored fault codes.</li>
+      <li>If you find paint damage, don't accept a dealer body-shop repaint. Ask for a different car, or at least a factory panel from another car of the same colour.</li>
+    </ul>
+  </div>
+
+  <div id="zones"></div>
+
+  <section class="panel summary" id="summary">
+    <h2>Summary for the dealer</h2>
+    <div class="stats">
+      <div class="stat"><strong id="sOk">0</strong><span>checked OK</span></div>
+      <div class="stat"><strong id="sIssue">0</strong><span>issues flagged</span></div>
+      <div class="stat"><strong id="sOpen">0</strong><span>not yet checked</span></div>
+    </div>
+    <div id="issueWrap">
+      <h3>Issues to resolve before delivery</h3>
+      <ol class="issues-list" id="issueList"></ol>
+    </div>
+    <p id="noIssues" class="how">No issues flagged yet.</p>
+    <div class="actions">
+      <button class="btn" id="copyBtn">Copy issue list</button>
+      <button class="btn ghost" id="printBtn">Print sheet</button>
+      <button class="btn ghost" id="resetBtn">Clear all ticks</button>
+    </div>
+    <p class="how" style="margin-top:12px">Get the dealer to write each open issue, and how they'll fix it, on the delivery note or job card before you sign.</p>
+  </section>
+
+  <footer>
+    <p><strong>Where the variant facts and weak spots come from.</strong> Items tagged "Known weak spot" trace back to these reports. Everything else is standard PDI practice applied to this car's actual equipment.</p>
+    <ol>
+      <li><a href="https://www.zigwheels.com/news-features/general-news/two-new-variants-and-feature-rejigs-for-the-skoda-kylaq-makes-sunroof-more-accessible/57569/" target="_blank" rel="noopener">ZigWheels, Jan 2026</a>: Classic+ equipment list over the Classic.</li>
+      <li><a href="https://www.team-bhp.com/news/skoda-kylaq-review-pros-cons-mileage-real-ownership-experience" target="_blank" rel="noopener">Team-BHP, Apr 2026</a>: owner of a Classic+ AT in Lava Blue; equipment as delivered, weak AC in hot weather, no armrest or parcel tray.</li>
+      <li><a href="https://www.team-bhp.com/news/my-skoda-kylaq-three-month-ownership-update" target="_blank" rel="noopener">Team-BHP, Oct 2025</a>: steering off-centre and wheel imbalance at about 100 km/h found after delivery; swirl marks on dark paint.</li>
+      <li><a href="https://www.team-bhp.com/news/my-skoda-kylaq-ownership-update-after-5-months-and-1500-km" target="_blank" rel="noopener">Team-BHP, Jan 2026</a>: creaks from trim over undulations; alignment and balancing fixed by service.</li>
+      <li><a href="https://www.carwale.com/skoda-cars/kylaq/reviews/" target="_blank" rel="noopener">CarWale owner reviews</a>: occasional interior plastic rattles, some engine noise at low rpm.</li>
+      <li><a href="https://www.carwale.com/news/skoda-kylaq-kushaq-and-slavia-recalled-over-800-units-affected/" target="_blank" rel="noopener">CarWale, Jul 2025</a> and <a href="https://www.carwale.com/news/scoop-skoda-kylaq-kushaq-slavia-recalled-in-india/" target="_blank" rel="noopener">May 2025</a>: seat-belt recalls on Kylaq, Kushaq and Slavia.</li>
+      <li><a href="https://www.cardekho.com/india-car-news/2026-skoda-kylaq-variantwise-features-on-offer-explained-35619.htm" target="_blank" rel="noopener">CarDekho, Feb 2026</a> and <a href="https://www.carwale.com/skoda-cars/kylaq/" target="_blank" rel="noopener">CarWale</a>: variant-wise features.</li>
+      <li><a href="https://www.team-bhp.com/advice/pre-delivery-inspection-pdi-check-list" target="_blank" rel="noopener">Team-BHP PDI guide</a>: odometer, manufacturing date, pre-registration inspection.</li>
+    </ol>
+    <p>Specs and equipment can change between production batches. Where this sheet says "Confirm fitted", the brochure for your car's build month is the final word.</p>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* hot = known Kylaq weak spot (with reason), key = high-risk PDI area, ver = confirm fitted */
+const ZONES = [
+ {id:"docs", name:"Paperwork and identity", note:"Match the car to the paperwork before looking at anything else. A car that fails here should not be inspected further.", items:[
+  {t:"VIN on the car matches invoice, Form 21 and insurance", h:"Read the VIN from the plate or sticker on the car (the owner's manual shows the location) and compare every character with the invoice, sale certificate (Form 21) and insurance draft.", k:"key"},
+  {t:"Engine number matches the paperwork", h:"Ask the dealer to show the engine number on the block or its label; compare it with the invoice and Form 22."},
+  {t:"Manufacturing month and year are recent", h:"Check the month and year on the VIN plate and Form 22. For a car delivered in September 2026, anything more than a few months old is old stock and worth negotiating over.", k:"key"},
+  {t:"Recall check on Skoda India's site", h:"Enter the VIN on Skoda India's recall page or ask the dealer to print the recall status. Any open recall must be closed before delivery.", k:"hot", why:"Kylaq was recalled twice in 2025 for rear seat-belt buckle and belt-frame defects. A 2026 build should be clear, but confirm it."},
+  {t:"Odometer reading is low", h:"Note the reading. Team-BHP's guide treats anything well above about 100 km as a red flag for a demo, transfer or misused car. Ask for an explanation of any high figure.", k:"key"},
+  {t:"Invoice shows the right variant, transmission and colour", h:"It should read Kylaq Classic+ AT (or Classic Plus AT), Lava Blue. Check the price breakup against your quotation."},
+  {t:"Insurance details are correct", h:"Chassis and engine numbers, variant, IDV, add-ons you paid for (zero-dep, engine protect, RSA), nominee and your name spelling."},
+  {t:"Warranty booklet, owner's manual and service book present", h:"The warranty start date should be the delivery date, not the invoice or dispatch date. The PDI entry should be stamped."},
+  {t:"Extended warranty or RSA certificates, if bought", h:"Get them in writing with policy numbers; don't accept 'it will come by email later' without a reference number."},
+  {t:"Two keys, both working", h:"Check both remotes lock and unlock, and both fold-out blades turn in the ignition. Count them before you sign."},
+  {t:"Accessory bill matches what is fitted", h:"Keep the accessory invoice beside you; you'll tick each part off in the final section."}
+ ]},
+ {id:"front", name:"Exterior: front", note:"Stand three metres back, then walk in close. Look along each panel at a low angle against the light, then use the torch.", items:[
+  {t:"Front bumper: scratches, scuffs, cracks", h:"Crouch and check the lower lip and corners; these hit ramps and trailer edges during transport.", k:"key"},
+  {t:"Grille and Škoda lettering: straight, secure, unscratched", h:"Press gently on the grille surround; it should not flex or rattle. Check the lettering for uneven gaps."},
+  {t:"Bonnet paint: chips, dents, swirl marks", h:"Look along the bonnet at an angle in daylight; dark blue shows fine swirls and sanding marks clearly.", k:"hot", why:"A Kylaq owner with a dark colour reported visible swirl marks within three months. Start with clean, factory-fresh paint so you know any later marks aren't delivery damage."},
+  {t:"Bonnet gaps even on both sides", h:"The gap to each fender and to the bumper should be equal left and right. Uneven gaps suggest a panel was removed or knocked."},
+  {t:"Headlamps: no cracks, scratches or moisture inside", h:"Shine the torch into each lamp. Fog or droplets inside mean a broken seal."},
+  {t:"LED DRLs present on both sides, same colour", h:"You'll test them lit in the electrical section; here just check the lenses."},
+  {t:"Windscreen: no chips, cracks or wiper scratches", h:"Check the glass brand and date markings in the corner. A windscreen with a different brand from the side glass may have been replaced.", k:"key"},
+  {t:"Wiper blades and washer nozzles undamaged", h:"Lift each blade; the rubber should be clean and uncut."},
+  {t:"Front number plate mount and tow-eye cover", h:"The plate should be HSRP-ready or fitted straight. The tow-eye cover should be flush and present."}
+ ]},
+ {id:"left", name:"Exterior: left side", note:"Walk from the front wheel to the rear wheel on the passenger side.", items:[
+  {t:"Left front fender: dents, paint match with bonnet and door", h:"View along the side at a low angle for ripples.", k:"key"},
+  {t:"Left ORVM: housing, glass, turn indicator", h:"No scratches on the cap; glass uncracked; indicator lens intact."},
+  {t:"Front and rear left doors: dents, dings, paint", h:"Door edges are the most-knocked spot in stockyards. Check the lower third of each door with the torch.", k:"key"},
+  {t:"Door gaps even and doors flush with the body", h:"Run a finger along each shut line; the door surface should not sit proud or sunk."},
+  {t:"Door handles and keyless points undamaged", h:"Check for scratches around the handle recess."},
+  {t:"Side window glass markings match", h:"Every glass should carry the same brand and similar date code. A mismatch points to a replaced glass."},
+  {t:"Pillars and window trims unscratched", h:"Gloss black pillar trims scratch easily during cleaning."},
+  {t:"Rubber seals: no paint overspray", h:"Paint dust on rubber seals or trims is a strong sign of a repaint.", k:"key"},
+  {t:"Side sill and underside of the sill", h:"Crouch and look under the sill; scrape marks come from car-carrier ramps.", k:"key"},
+  {t:"Wheel-arch and body cladding secure", h:"Pull gently; the cladding should not move or have missing clips."},
+  {t:"Rear quarter panel: dents and paint", h:"Look along it at an angle, as with the front fender."}
+ ]},
+ {id:"rear", name:"Exterior: rear", items:[
+  {t:"Tailgate paint and alignment", h:"The gaps to the bumper and tail lamps should be even left and right.", k:"key"},
+  {t:"Tail lamps: no cracks or moisture", h:"Shine the torch inside each lamp cluster."},
+  {t:"Rear bumper and skid-plate trim", h:"Check corners and the lower edge for scuffs; check the silver skid-plate trim is secure."},
+  {t:"Badges straight and secure", h:"Škoda and Kylaq badging should be level and centred."},
+  {t:"Rear glass: no scratches", h:"Check the whole glass, especially the lower section."},
+  {t:"Rear wiper and washer", h:"If fitted, check the blade and arm. Don't mark it as a defect if the variant doesn't have one.", k:"ver"},
+  {t:"Rear parking sensors", h:"If fitted, check sensor paint matches the bumper and none are pushed in.", k:"ver"},
+  {t:"Exhaust tip: no dents, rust or heavy soot", h:"Heavy soot on a nearly new car can mean long idling at the yard."},
+  {t:"Rear number plate lamp and plate mount", h:"Lamp lens intact; you'll test it lit later."}
+ ]},
+ {id:"right", name:"Exterior: right side", note:"Repeat the left-side checks on the driver's side.", items:[
+  {t:"Right rear quarter panel: dents and paint", h:"Look along it at a low angle.", k:"key"},
+  {t:"Fuel flap opens and closes; cap and seal intact", h:"The flap should sit flush. Check the fuel-type label is present."},
+  {t:"Rear and front right doors: dents, dings, paint", h:"Torch on the lower door edges.", k:"key"},
+  {t:"Door gaps and flushness", h:"Same finger test along the shut lines."},
+  {t:"Right ORVM: housing, glass, turn indicator", h:"Check for scratches and cracks."},
+  {t:"Side glass markings match the other windows", h:"Compare brand and date code."},
+  {t:"Pillar trims, seals free of overspray", h:"Look for paint dust on rubber.", k:"key"},
+  {t:"Side sill and underside of the sill", h:"Crouch and look for ramp scrapes.", k:"key"},
+  {t:"Right front fender: dents and paint match", h:"Compare shade with the bonnet and front door in daylight."}
+ ]},
+ {id:"top", name:"Top: roof, sunroof and paint", note:"Stand on the door sill (with the door open) or ask for a step stool. Roof damage is easy to miss and expensive to fix.", items:[
+  {t:"Roof panel: dents, scratches, paint", h:"Look along the roof against the sky. Stacking and loading damage often shows here.", k:"key"},
+  {t:"Sunroof glass: no chips, scratches or cracks", h:"Check the whole glass with the torch at an angle."},
+  {t:"Sunroof outer seal seated evenly", h:"The rubber should sit flat all around, with no gaps or kinks.", k:"hot", why:"Sunroof leaks from seals or drain tubes are a recurring complaint on other Škoda models. You'll water-test it in the cabin section."},
+  {t:"Roof rails secure", h:"Push and pull gently; there should be no movement or creak."},
+  {t:"Antenna present and secure", h:"Check whichever antenna type is fitted."},
+  {t:"Overall paint: shade and sparkle consistent on every panel", h:"Walk round once more at a distance. Any panel that looks slightly different in shade or texture needs a closer look or a paint-gauge reading.", k:"key"},
+  {t:"No sanding marks, masking lines or polish residue in seams", h:"White compound in panel gaps and fine circular marks under the torch are signs of rework.", k:"key"}
+ ]},
+ {id:"wheels", name:"Wheels and tyres", note:"Your car runs 16-inch steel wheels with silver wheel caps.", items:[
+  {t:"Wheel caps secure and unscratched on all four wheels", h:"Tug gently; they should not rattle. Scratches mean the car was kerbed."},
+  {t:"Same tyre brand, model and size on all four", h:"Read the sidewall; published size for this wheel is 205/60 R16. All four should be identical."},
+  {t:"Tyre date codes are recent", h:"The four-digit DOT code gives week and year (for example 1226 is week 12 of 2026). Very old tyres suggest old stock.", k:"key"},
+  {t:"Tread 'hairs' still present, no uneven wear", h:"Moulding hairs on the tread mean the tyre is unused. Worn edges on a new car suggest misalignment or heavy use.", k:"hot", why:"Kylaq owners reported misalignment and wheel imbalance from the factory, fixed later by service."},
+  {t:"No cuts, bulges or scuffs on sidewalls", h:"Check the inner sidewall too, with the torch."},
+  {t:"Tyre pressures match the door-pillar placard", h:"Measure all four with your gauge before the drive."},
+  {t:"Spare wheel: new, same size, correctly inflated", h:"Lift the boot floor. Check its date code and pressure too."},
+  {t:"Jack, wheel spanner and tow-eye present", h:"Check they're in the tool tray and that the jack works."},
+  {t:"Wheel nuts all present and not scratched", h:"Scratched nuts on a new car mean the wheel has been removed."}
+ ]},
+ {id:"under", name:"Underbody", note:"Lie a cloth down and look under the front, middle and rear with the torch. A few drops of clear water under the front after the AC runs is normal.", items:[
+  {t:"No oil, coolant or fuel drips on the ground", h:"Check the ground where the car was parked before it was moved.", k:"key"},
+  {t:"No scrape or impact marks on the underbody", h:"Look at the front lower edge, the fuel tank area and the rear bumper underside.", k:"key"},
+  {t:"Exhaust hangers and heat shields secure", h:"Tap the exhaust gently; it should not knock against the body."},
+  {t:"CV joint boots and steering boots intact", h:"Look behind each front wheel for torn rubber or grease splatter."},
+  {t:"Suspension parts undamaged, no leaks at the shocks", h:"Oily streaks on a shock absorber mean it's leaking."},
+  {t:"Only light surface rust on bolts", h:"Heavy rust on a new car points to long storage in the open."}
+ ]},
+ {id:"engine", name:"Engine bay", note:"Engine off and cool. Touch the bonnet first: if it's warm, the car was run before you arrived.", items:[
+  {t:"Bonnet opens smoothly and the catch closes firmly", h:"Check the release lever, the safety catch and that the bonnet stays up."},
+  {t:"Engine is cold when you arrive", h:"A warm engine hides cold-start noises and some starting faults.", k:"key"},
+  {t:"Engine oil level between the marks, oil clean", h:"Pull the dipstick, wipe, reinsert, read. The oil should be clean and golden."},
+  {t:"Coolant between MIN and MAX", h:"Read the expansion tank level; don't open it."},
+  {t:"Brake fluid between MIN and MAX", h:"Read the reservoir level."},
+  {t:"Washer fluid filled", h:"You'll need it for the rain-sensor test."},
+  {t:"Battery: terminals tight, no corrosion, recent date", h:"Check the manufacturing code on the battery. If you have a multimeter, a rested battery should read roughly 12.4 to 12.7 V."},
+  {t:"No oil seepage around the engine or turbo area", h:"Use the torch around the top of the engine and the turbo pipes."},
+  {t:"No rodent damage to wiring or insulation", h:"Look for chewed wires, droppings or nesting material. Cars stored in open yards are at risk.", k:"key"},
+  {t:"Hoses and clamps seated, no cracks", h:"Squeeze hoses gently; they should be firm and uncracked."},
+  {t:"No signs of parts removed or replaced", h:"Scratched bolt heads, missing labels or mismatched stickers suggest someone has worked on it."}
+ ]},
+ {id:"cabin", name:"Cabin: front row and roof", note:"Start with the ignition off, then switch it on (engine off) for the electrical checks.", items:[
+  {t:"Cabin smells clean, no damp or smoke odour", h:"A musty smell can mean water got in."},
+  {t:"Carpets dry under the mats", h:"Lift the front mats and press the carpet, especially in the footwells near the door and the A-pillar.", k:"key"},
+  {t:"Dashboard and door pads free of scratches", h:"Check the glossy trim around the dashboard and around the gear selector."},
+  {t:"Seats: no stains, tears or loose stitching", h:"Check the seat sides, where people slide in."},
+  {t:"Driver seat: slide, recline and height adjust all work", h:"Run each adjustment through its full range and listen for grinding."},
+  {t:"Front headrests adjust and lock", h:"Raise, lower and check they lock."},
+  {t:"Front seat belts: latch, release, retract and lock", h:"Pull sharply on each belt; it must lock. Check the belt height adjusters.", k:"hot", why:"Kylaq seat belts were recalled twice in 2025 (buckle latch plate and belt frame). Check every belt works smoothly."},
+  {t:"Steering tilt and reach adjust and lock", h:"Release the lever, move the wheel through its range, lock, and push to check it doesn't slip."},
+  {t:"Horn works", h:"Press the centre pad in a few places."},
+  {t:"Ignition on: warning lights come on, then go off", h:"All warning lamps should light briefly and go out. Note any that stay on (airbag, ABS, ESC, engine, TPMS).", k:"key"},
+  {t:"Instrument cluster: odometer, fuel gauge, trip display", h:"Note the odometer and fuel level. Scroll through the trip screens."},
+  {t:"All four power windows go fully up and down", h:"Test from the driver's panel and from each door. Listen for grinding and watch that the glass doesn't wobble."},
+  {t:"Rear window lock switch", h:"With it on, rear switches should stop working."},
+  {t:"Central locking from key and inside button", h:"Lock and unlock with each key and from the cabin switch."},
+  {t:"ORVM adjust switch moves both mirrors", h:"Move each mirror in all four directions."},
+  {t:"Auto-dimming IRVM works", h:"Cover the forward sensor and shine the torch at the mirror from the rear; it should darken."},
+  {t:"Sun visors and vanity mirrors", h:"Check they stay in position."},
+  {t:"Cabin and roof lamps", h:"Test each lamp and the door-open setting."},
+  {t:"Headliner clean, no sag or stains", h:"Water marks near the sunroof are a warning sign of a leak.", k:"key"},
+  {t:"Sunroof opens, tilts and closes fully", h:"Run it through every position twice and listen for grinding or hesitation."},
+  {t:"Sunroof sunblind slides and stays", h:"Slide it fully open and closed."},
+  {t:"Sunroof anti-pinch", h:"If fitted, test gently with a soft folded cloth, never a hand. The glass should reverse.", k:"ver"},
+  {t:"Sunroof water test: no drips, drains flow", h:"With the sunroof closed, pour a bottle of water slowly on the roof around the glass. Check inside for drips at the headliner and A-pillars, and look for water draining out at the base of the front pillars.", k:"hot", why:"Sunroof seal and drain-tube leaks are documented on other Škoda models. A water test at PDI is the only way to catch a factory fault before you own it."},
+  {t:"12V and USB sockets charge", h:"Plug in your phone and check it charges from each port."},
+  {t:"Glovebox opens, closes and latches", h:"It should not rattle when closed."}
+ ]},
+ {id:"climate", name:"Climate control and lights", note:"Engine running, car stationary.", items:[
+  {t:"AC cools quickly on the coldest setting", h:"Set the lowest temperature, fan high, recirculation on. After about 5 minutes, put your thermometer in a centre vent and note the reading. Compare with the outside temperature.", k:"hot", why:"A Classic+ AT owner found the AC weaker than expected in hot weather. Record a baseline number now, so the dealer can't dismiss a later complaint."},
+  {t:"Auto mode, fan speeds, air direction and recirculation", h:"Step through every fan speed and vent mode. Listen for rattles from the blower."},
+  {t:"Heater blows warm air", h:"Once the engine is warm, set the highest temperature."},
+  {t:"No bad smell from the vents", h:"A damp or burnt smell on a new car is not normal."},
+  {t:"Rear AC vents", h:"An owner of this variant said the rear vents weren't active on his car. Ask the dealer what is standard before judging it a defect.", k:"ver"},
+  {t:"Rear defogger", h:"If fitted, switch it on and feel the rear glass warm after a few minutes.", k:"ver"},
+  {t:"Headlamps: low beam, high beam, flash", h:"Ask a helper to stand outside, or check against a wall."},
+  {t:"LED DRLs, parking lamps, tail lamps", h:"Walk round the car with lights on."},
+  {t:"Turn indicators front, ORVM and rear, both sides", h:"Check the dashboard indicator ticks at a normal rate. Fast ticking means a failed bulb or LED."},
+  {t:"Hazard lamps", h:"All indicators should flash together."},
+  {t:"Brake lamps including the high-mount lamp", h:"Ask a helper to watch while you press the brake."},
+  {t:"Reverse lamp", h:"Foot on brake, select R; check with a helper."},
+  {t:"Number-plate lamp", h:"Check it lights evenly."},
+  {t:"Front wipers: all speeds and washer", h:"Test every stalk position."},
+  {t:"Rain-sensing wipers respond", h:"Set auto mode and splash water on the windscreen in front of the mirror. The wipers should start on their own."},
+  {t:"Steering audio buttons", h:"Your variant has no head unit, so these may do nothing until one is fitted. Ask the dealer whether they are wired and working.", k:"ver"},
+  {t:"Speakers", h:"Four speakers are fitted without a head unit, so they can't be tested now. Note this and ask the dealer how speaker faults will be handled if you fit a stereo later."}
+ ]},
+ {id:"rearseat", name:"Rear seat", items:[
+  {t:"Rear seat fabric clean, no tears", h:"Check the seat base edges and backrest."},
+  {t:"Rear headrests present and adjustable", h:"Count them and check each locks."},
+  {t:"All three rear belts latch, release, retract and lock", h:"Test left, centre and right. Pull each belt sharply to check it locks. Make sure each buckle matches its belt.", k:"hot", why:"The 2025 recalls covered the rear buckle latch plate, the rear centre belt webbing, the rear right buckle and a crack-prone belt base. Test all three thoroughly."},
+  {t:"ISOFIX anchors present on both outer seats", h:"Find them between the seat base and backrest."},
+  {t:"Rear seat folds and locks back", h:"Fold and return it. Check whether it's a 60:40 split on your variant.", k:"ver"},
+  {t:"Child locks on both rear doors", h:"Set the lock; the inside handle should not open the door."},
+  {t:"Rear door pads, handles and window switches", h:"Check for scratches and loose trims."},
+  {t:"Rear floor carpet dry", h:"Lift the rear mats too.", k:"key"}
+ ]},
+ {id:"boot", name:"Boot", items:[
+  {t:"Tailgate opens, stays up, closes and latches firmly", h:"Open fully; it should hold without drooping. Close it and check it's flush."},
+  {t:"Boot lamp works", h:"Check it lights when the tailgate opens."},
+  {t:"Boot seal seated all round", h:"No gaps, kinks or tears."},
+  {t:"Spare-wheel well dry", h:"Lift the floor. Water here points to a tail-lamp or tailgate seal leak.", k:"key"},
+  {t:"Boot floor board and trims secure", h:"No scratches, dents or loose clips."},
+  {t:"Warning triangle and any supplied kit present", h:"Check against the owner's manual list of supplied tools."}
+ ]},
+ {id:"start", name:"Engine start and stationary checks", items:[
+  {t:"Cold start: starts promptly, no warning lights", h:"Watch the cluster as it starts. Any light that stays on is a stop point."},
+  {t:"Idle settles smoothly", h:"The 1.0 TSI is a 3-cylinder, so some idle vibration and low-rpm sound is normal. Rough or uneven idle, misfires or hunting rpm are not.", k:"hot", why:"Owners mention some engine noise at low rpm; that's the engine's character. Be ready to tell the difference between normal 3-cylinder feel and a fault."},
+  {t:"No unusual noise from the engine bay", h:"Listen with the bonnet open for ticking, whining or rattling."},
+  {t:"No smoke from the exhaust", h:"A little vapour on a cold morning is fine; blue or black smoke is not."},
+  {t:"Gear selector moves through P, R, N, D and S", h:"The selector should need the brake to leave P. Check the cluster shows the right gear each time."},
+  {t:"Paddle shifters", h:"If fitted, check they change gears in manual mode.", k:"ver"},
+  {t:"Steering turns lock to lock smoothly", h:"Stationary, turn fully left and right. Listen for groaning or clunks."},
+  {t:"Parking brake holds and releases", h:"Apply fully; the warning lamp should light and go off on release."},
+  {t:"Optional: scan for stored fault codes", h:"If you have a VAG-compatible OBD scanner, read the stored codes. Any stored code on a new car needs an explanation from the dealer."}
+ ]},
+ {id:"drive", name:"Test drive (automatic)", note:"Ask for a drive of at least a few kilometres on a mix of roads. Radio is off anyway, so listen carefully.", items:[
+  {t:"Car creeps smoothly from standstill in D", h:"Release the brake gently; it should move off without a jerk."},
+  {t:"Upshifts smooth, no slip or flare", h:"Accelerate gently, then moderately. Each shift should feel smooth without the revs jumping between gears."},
+  {t:"Downshifts and kickdown respond cleanly", h:"Press the pedal firmly at 40 to 50 km/h; it should drop a gear promptly without a clunk."},
+  {t:"Reverse engages without a clunk", h:"From standstill, select R and move off slowly."},
+  {t:"S mode holds gears longer", h:"Switch to S and check the difference."},
+  {t:"Steering wheel is centred when driving straight", h:"On a straight, level road, the Škoda logo should be level. A tilted wheel means alignment is off.", k:"hot", why:"A Kylaq owner found the steering off-centre at delivery; the service centre had to fix it."},
+  {t:"Car doesn't pull left or right", h:"Loosen your grip briefly on a straight, flat road (only where safe). The car should track straight."},
+  {t:"No vibration through the steering at higher speed", h:"If the road allows, drive at 80 to 100 km/h. Shake in the steering or seat means wheel imbalance.", k:"hot", why:"The same owner reported imbalance at around 100 km/h after delivery."},
+  {t:"Brakes stop straight with no pulsing or squeal", h:"Brake firmly from 40 to 50 km/h on a clear road."},
+  {t:"No creaks, knocks or rattles over bumps", h:"Drive over speed breakers and broken patches slowly. Listen at the dashboard, doors, sunroof and rear seat.", k:"hot", why:"Owners report trim creaks over undulations and occasional plastic rattles. They're easier to get fixed before delivery than after."},
+  {t:"No excess wind noise from doors or sunroof", h:"Listen at speed near the door frames and the roof."},
+  {t:"Cruise control sets, holds, resumes and cancels", h:"At a steady speed where cruise engages, set it, then tap the brake to cancel, and resume."},
+  {t:"Hill hold", h:"If fitted, on a slope release the brake: the car should hold briefly before moving.", k:"ver"},
+  {t:"Doors lock automatically once moving", h:"Speed-sensing locks are standard. Listen for the lock after you pull away."},
+  {t:"Temperature gauge reaches normal and stays there", h:"Watch it during the drive."},
+  {t:"No new warning lights during or after the drive", h:"Check the cluster again before switching off."},
+  {t:"After the drive: no new drips under the car", h:"Look under the engine and gearbox area once parked. Clear water from the AC is normal."}
+ ]},
+ {id:"handover", name:"Handover", note:"Only sign the delivery note once every open issue is written down with an agreed fix.", items:[
+  {t:"Every billed accessory is fitted and working", h:"Tick each item on the accessory invoice against the car (mats, mud flaps, garnish, and so on)."},
+  {t:"Fuel level as promised", h:"Compare with what the dealer told you."},
+  {t:"Number plates (HSRP) fitted or a date given", h:"Get the fitment date in writing if not done."},
+  {t:"Issues flagged in this sheet are written on the delivery note or job card", h:"Include what will be fixed, how, and by when. Keep a photo of the signed note.", k:"key"},
+  {t:"No dealer repaint accepted on any panel", h:"Ask for a different car or a factory panel from another car in the same colour.", k:"key"},
+  {t:"Photos taken of the car at handover", h:"All four sides, roof, wheels, cluster with odometer, and any accepted minor marks."},
+  {t:"Service contacts and first service schedule noted", h:"Ask for the service advisor's name and number, and the first free service interval."}
+ ]}
+];
+
+const KEY = "kylaq-classicplus-at-pdi-v1";
+let state = {};
+try { state = JSON.parse(sessionStorage.getItem(KEY) || "{}") || {}; } catch(e) { state = {}; }
+const save = () => { try { sessionStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} };
+let filter = "all";
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function render(){
+  const zonesEl = document.getElementById("zones");
+  const stEl = document.getElementById("stations");
+  let html = "", st = "";
+  ZONES.forEach((z, zi) => {
+    const n = zi + 1;
+    st += `<a class="st" href="#z-${z.id}" data-z="${z.id}"><b>${n}</b>${esc(z.name)}</a>`;
+    html += `<section class="zone" id="z-${z.id}" data-z="${z.id}">
+      <div class="zone-head"><span class="zone-num">${n}</span><h2>${esc(z.name)}</h2><span class="zone-count" data-count="${z.id}"></span></div>
+      ${z.note ? `<p class="zone-note">${esc(z.note)}</p>` : ""}`;
+    // weak spots first within each zone
+    const items = z.items.map((it, i) => ({...it, id: z.id + "-" + i}))
+      .sort((a, b) => (b.k === "hot") - (a.k === "hot"));
+    items.forEach(it => {
+      const tag = it.k === "hot" ? `<span class="tag hot">Known weak spot</span>`
+        : it.k === "key" ? `<span class="tag key">High-risk area</span>`
+        : it.k === "ver" ? `<span class="tag ver">Confirm fitted</span>` : "";
+      html += `<div class="item ${it.k === "hot" ? "hot" : ""}" data-id="${it.id}" data-k="${it.k || ""}">
+        <input type="checkbox" class="cb" id="cb-${it.id}" aria-label="Checked OK: ${esc(it.t)}">
+        <div>
+          <label class="ttl" for="cb-${it.id}">${esc(it.t)}</label>
+          <div class="how">${esc(it.h)}</div>
+          ${it.why ? `<div class="why">${esc(it.why)}</div>` : ""}
+          ${tag ? `<div class="tags">${tag}</div>` : ""}
+        </div>
+        <button class="flag" type="button" aria-pressed="false">Issue</button>
+        <div class="note"><textarea placeholder="What did you find? Where exactly?" aria-label="Issue note for ${esc(it.t)}"></textarea></div>
+      </div>`;
+    });
+    html += `</section>`;
+  });
+  zonesEl.innerHTML = html;
+  stEl.innerHTML = st;
+
+  document.querySelectorAll(".item").forEach(row => {
+    const id = row.dataset.id, s = state[id] || {};
+    const cb = row.querySelector(".cb"), fl = row.querySelector(".flag"), ta = row.querySelector("textarea");
+    cb.checked = !!s.ok;
+    fl.setAttribute("aria-pressed", s.issue ? "true" : "false");
+    ta.value = s.note || "";
+    paintRow(row);
+    cb.addEventListener("change", () => {
+      state[id] = {...(state[id] || {}), ok: cb.checked};
+      if (cb.checked && state[id].issue) { state[id].issue = false; fl.setAttribute("aria-pressed","false"); }
+      save(); paintRow(row); update();
+    });
+    fl.addEventListener("click", () => {
+      const on = fl.getAttribute("aria-pressed") !== "true";
+      fl.setAttribute("aria-pressed", on ? "true" : "false");
+      state[id] = {...(state[id] || {}), issue: on};
+      if (on) { state[id].ok = false; cb.checked = false; setTimeout(() => ta.focus(), 0); }
+      save(); paintRow(row); update();
+    });
+    ta.addEventListener("input", () => { state[id] = {...(state[id] || {}), note: ta.value}; save(); updateSummary(); });
+  });
+  update();
+}
+
+function paintRow(row){
+  const s = state[row.dataset.id] || {};
+  row.classList.toggle("is-ok", !!s.ok);
+  row.classList.toggle("is-issue", !!s.issue);
+}
+
+function applyFilter(){
+  document.querySelectorAll(".item").forEach(row => {
+    const s = state[row.dataset.id] || {};
+    let show = true;
+    if (filter === "hot") show = row.dataset.k === "hot";
+    if (filter === "open") show = !s.ok && !s.issue;
+    if (filter === "issue") show = !!s.issue;
+    row.classList.toggle("hidden", !show);
+  });
+  document.querySelectorAll("section.zone").forEach(sec => {
+    const any = sec.querySelector(".item:not(.hidden)");
+    sec.classList.toggle("hidden", !any);
+  });
+}
+
+function update(){
+  let total = 0, done = 0;
+  ZONES.forEach(z => {
+    let zt = 0, zd = 0, zi = 0;
+    z.items.forEach((_, i) => {
+      const s = state[z.id + "-" + i] || {};
+      zt++; if (s.ok || s.issue) zd++; if (s.issue) zi++;
+    });
+    total += zt; done += zd;
+    const c = document.querySelector(`[data-count="${z.id}"]`);
+    if (c) c.textContent = `${zd} of ${zt}`;
+    const stn = document.querySelector(`.st[data-z="${z.id}"]`);
+    if (stn) { stn.classList.toggle("done", zd === zt && zi === 0); stn.classList.toggle("issue", zi > 0); }
+  });
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById("meterFill").style.width = pct + "%";
+  document.getElementById("meterBar").setAttribute("aria-valuenow", pct);
+  document.getElementById("meterTxt").textContent = `${done} / ${total} checked`;
+  applyFilter();
+  updateSummary();
+}
+
+function issues(){
+  const out = [];
+  ZONES.forEach(z => z.items.forEach((it, i) => {
+    const s = state[z.id + "-" + i];
+    if (s && s.issue) out.push({zone: z.name, t: it.t, note: (s.note || "").trim()});
+  }));
+  return out;
+}
+
+function updateSummary(){
+  let ok = 0, iss = 0, total = 0;
+  ZONES.forEach(z => z.items.forEach((_, i) => { total++; const s = state[z.id + "-" + i] || {}; if (s.ok) ok++; if (s.issue) iss++; }));
+  document.getElementById("sOk").textContent = ok;
+  document.getElementById("sIssue").textContent = iss;
+  document.getElementById("sOpen").textContent = total - ok - iss;
+  const list = issues();
+  document.getElementById("issueList").innerHTML = list.map(x =>
+    `<li><strong>${esc(x.zone)}:</strong> ${esc(x.t)}${x.note ? `<br><span class="how">${esc(x.note)}</span>` : ""}</li>`).join("");
+  document.getElementById("issueWrap").classList.toggle("hidden", !list.length);
+  document.getElementById("noIssues").classList.toggle("hidden", !!list.length);
+}
+
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+document.querySelectorAll(".chip").forEach(ch => ch.addEventListener("click", () => {
+  document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", "false"));
+  ch.setAttribute("aria-pressed", "true");
+  filter = ch.dataset.f;
+  applyFilter();
+}));
+
+document.getElementById("copyBtn").addEventListener("click", async () => {
+  const list = issues();
+  if (!list.length) { toast("No issues flagged yet"); return; }
+  const text = "Škoda Kylaq Classic+ AT, Lava Blue: PDI issues\n\n" +
+    list.map((x, i) => `${i + 1}. [${x.zone}] ${x.t}${x.note ? " - " + x.note : ""}`).join("\n");
+  try { await navigator.clipboard.writeText(text); toast("Issue list copied"); }
+  catch(e) {
+    const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); toast("Issue list copied"); } catch(_) { toast("Copy failed; select the list and copy it manually"); }
+    ta.remove();
+  }
+});
+document.getElementById("printBtn").addEventListener("click", () => window.print());
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (!confirm("Clear every tick, issue and note in this session?")) return;
+  state = {}; save(); render(); toast("All ticks cleared");
+});
+
+render();
+</script>
+</body>
+</html>
